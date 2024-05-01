@@ -9,6 +9,10 @@ const PostSchema = new Schema(
     },
     description: String,
     image: String,
+    datetime: {
+      type: String,
+      required: true,
+    },
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',

@@ -1,11 +1,39 @@
 import express from 'express';
 import Post from '../models/Post';
+import auth, { RequestWithUser } from '../middleware/auth';
+import { PostMutation } from '../types';
+import { imagesUpload } from '../multer';
+import mongoose from 'mongoose';
 
 const postsRouter = express.Router();
 
-postsRouter.post('/', async (req, res, next) => {
-  return res.send('test');
-})
+postsRouter.post(
+  '/',
+  auth,
+  imagesUpload.single('image'),
+  async (req: RequestWithUser, res, next) => {
+    try {
+      const date = new Date();
+
+      const postData: PostMutation = {
+        title: req.body.title,
+        description: req.body.description,
+        image: req.file ? req.file.filename : null,
+        datetime: date.toISOString(),
+        author: req.user?.id,
+      };
+
+      const post = new Post(postData);
+      await post.save();
+      return res.send(post);
+    } catch (error) {
+      if (error instanceof mongoose.Error.ValidationError) {
+        return res.status(422).send(error);
+      }
+      next(error);
+    }
+  }
+);
 
 postsRouter.get('/', async (_req, res, next) => {
   try {
@@ -16,3 +44,5 @@ postsRouter.get('/', async (_req, res, next) => {
     next(error);
   }
 });
+
+export default postsRouter;
