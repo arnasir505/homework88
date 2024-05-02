@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { User } from '../../types';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../app/hooks';
-import { logout } from '../../store/usersThunks';
+import { logout } from '../../store/users/usersThunks';
 
 interface Props {
   user: User;

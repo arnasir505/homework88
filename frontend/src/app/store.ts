@@ -9,8 +9,9 @@ import {
   persistReducer,
   persistStore,
 } from 'redux-persist';
-import { usersReducer } from '../store/usersSlice';
+import { usersReducer } from '../store/users/usersSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { newPostReducer } from '../store/newPost/newPostSlice';
 
 const userPersistConfig = {
   key: 'forum:users',
@@ -20,6 +21,7 @@ const userPersistConfig = {
 
 const rootReducer = combineReducers({
   users: persistReducer(userPersistConfig, usersReducer),
+  newPost: newPostReducer,
 });
 
 export const store = configureStore({

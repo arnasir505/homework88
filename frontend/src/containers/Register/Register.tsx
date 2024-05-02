@@ -3,10 +3,10 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   selectRegisterError,
   selectRegisterLoading,
-} from '../../store/usersSlice';
+} from '../../store/users/usersSlice';
 import { RegisterMutation } from '../../types';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { register } from '../../store/usersThunks';
+import { register } from '../../store/users/usersThunks';
 import {
   Avatar,
   Box,

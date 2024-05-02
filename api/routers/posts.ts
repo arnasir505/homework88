@@ -15,6 +15,10 @@ postsRouter.post(
     try {
       const date = new Date();
 
+      if (!req.body.title) {
+        return res.status(400).send({error: 'Title field is required.'})
+      }
+
       if (!req.file && !req.body.description) {
         return res.status(400).send({error: 'Fields image or description are required.'})
       };

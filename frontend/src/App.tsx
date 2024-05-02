@@ -3,6 +3,7 @@ import Appbar from './components/Appbar/Appbar';
 import { Typography } from '@mui/material';
 import Register from './containers/Register/Register';
 import Login from './containers/Login/Login';
+import NewPost from './containers/NewPost/NewPost';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path='/' element={'home'}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/new-post' element={<NewPost/>}/>
           <Route
             path='*'
             element={

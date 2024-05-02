@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { LoginMutation } from '../../types';
-import { selectLoginError, selectLoginLoading } from '../../store/usersSlice';
-import { login } from '../../store/usersThunks';
+import {
+  selectLoginError,
+  selectLoginLoading,
+} from '../../store/users/usersSlice';
+import { login } from '../../store/users/usersThunks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   Container,
