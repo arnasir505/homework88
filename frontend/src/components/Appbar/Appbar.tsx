@@ -23,7 +23,7 @@ const Appbar: React.FC = () => {
   const user = useAppSelector(selectUser);
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static'>
+      <AppBar position='static' color='transparent'>
         <Container>
           <Toolbar>
             <Grid container justifyContent='space-between' alignItems='center'>
