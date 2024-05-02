@@ -4,7 +4,7 @@ import Post from './Post';
 
 const CommentSchema = new Schema(
   {
-    user: {
+    author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,

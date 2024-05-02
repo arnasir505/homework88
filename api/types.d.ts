@@ -11,3 +11,10 @@ export interface PostMutation {
   datetime: string;
   author: string;
 }
+
+export interface CommentMutation {
+  author: string;
+  post: string;
+  body: string;
+  datetime: string; 
+}
