@@ -50,7 +50,7 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: '#ff4500' }}>
           <LockOpenIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
@@ -95,6 +95,7 @@ const Login = () => {
             type='submit'
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
+            color='warning'
           >
             Sign in
           </LoadingButton>

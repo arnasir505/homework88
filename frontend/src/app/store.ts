@@ -15,7 +15,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 const userPersistConfig = {
   key: 'forum:users',
   storage,
-  whiteList: ['user'],
+  whitelist: ['user'],
 };
 
 const rootReducer = combineReducers({

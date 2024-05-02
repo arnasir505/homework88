@@ -34,6 +34,7 @@ export const usersSlice = createSlice({
     });
     builder.addCase(register.fulfilled, (state, { payload: user }) => {
       state.registerLoading = false;
+      state.loginError = null;
       state.user = user;
     });
     builder.addCase(register.rejected, (state, { payload: error }) => {
@@ -48,6 +49,7 @@ export const usersSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, { payload: user }) => {
         state.loginLoading = false;
+        state.registerError = null;
         state.user = user;
       })
       .addCase(login.rejected, (state, { payload: error }) => {
