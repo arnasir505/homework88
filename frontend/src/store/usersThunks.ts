@@ -9,6 +9,8 @@ import {
 } from '../types';
 import axiosApi from '../axiosApi';
 import { isAxiosError } from 'axios';
+import { unsetUser } from './usersSlice';
+import { RootState } from '../app/store';
 
 export const register = createAsyncThunk<
   User,
@@ -57,3 +59,16 @@ export const login = createAsyncThunk<
     throw error;
   }
 });
+
+export const logout = createAsyncThunk<void, undefined, { state: RootState }>(
+  'users/logout',
+  async (_, { getState, dispatch }) => {
+
+    const config = {
+      headers: { Authorization: `Bearer ${getState().users.user?.token}` },
+    };
+
+    await axiosApi.delete('/users/sessions', config);
+    dispatch(unsetUser());
+  }
+);
