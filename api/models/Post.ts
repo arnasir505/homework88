@@ -7,8 +7,8 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
-    description: String,
-    image: String,
+    description: String || null,
+    image: String || null,
     datetime: {
       type: String,
       required: true,

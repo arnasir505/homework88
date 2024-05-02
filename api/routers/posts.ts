@@ -15,9 +15,13 @@ postsRouter.post(
     try {
       const date = new Date();
 
+      if (!req.file && !req.body.description) {
+        return res.status(400).send({error: 'Fields image or description are required.'})
+      };
+      
       const postData: PostMutation = {
         title: req.body.title,
-        description: req.body.description,
+        description: req.body.description || null,
         image: req.file ? req.file.filename : null,
         datetime: date.toISOString(),
         author: req.user?.id,
