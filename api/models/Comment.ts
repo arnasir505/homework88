@@ -1,9 +1,10 @@
 import { Schema, Types, model } from 'mongoose';
 import User from './User';
+import Post from './Post';
 
-const PostSchema = new Schema(
+const CommentSchema = new Schema(
   {
-    author: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
@@ -12,12 +13,19 @@ const PostSchema = new Schema(
         message: 'User does not exist.',
       },
     },
-    title: {
+    post: {
+      type: Schema.Types.ObjectId,
+      ref: 'Post',
+      required: true,
+      validate: {
+        validator: async (id: Types.ObjectId) => Post.findById(id),
+        message: 'Post does not exist.',
+      },
+    },
+    body: {
       type: String,
       required: true,
     },
-    description: String || null,
-    image: String || null,
     datetime: {
       type: String,
       required: true,
@@ -26,6 +34,6 @@ const PostSchema = new Schema(
   { versionKey: false }
 );
 
-const Post = model('Post', PostSchema);
+const Comment = model('Comment', CommentSchema);
 
-export default Post;
+export default Comment;
