@@ -15,6 +15,6 @@ export interface PostMutation {
 export interface CommentMutation {
   author: string;
   post: string;
-  body: string;
+  comment: string;
   datetime: string; 
 }

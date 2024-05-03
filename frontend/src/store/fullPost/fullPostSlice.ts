@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Comment, FullPost, ValidationError } from '../../types';
 import { RootState } from '../../app/store';
-import { fetchFullPost } from './fullPostThunks';
+import { addComment, fetchFullPost } from './fullPostThunks';
 
 interface FullPostState {
   data: FullPost;
   comments: Comment[];
   loading: boolean;
   error: boolean;
-  commentsLoading: boolean;
-  commentsError: ValidationError | null;
+  commentSubmitLoading: boolean;
+  commentSubmitError: ValidationError | null;
 }
 
 const initialState: FullPostState = {
@@ -27,8 +27,8 @@ const initialState: FullPostState = {
   comments: [],
   loading: false,
   error: false,
-  commentsLoading: false,
-  commentsError: null,
+  commentSubmitLoading: false,
+  commentSubmitError: null,
 };
 
 const fullPostSlice = createSlice({
@@ -53,7 +53,7 @@ const fullPostSlice = createSlice({
     builder
       .addCase(fetchFullPost.pending, (state) => {
         state.loading = true;
-        state.commentsError = null;
+        state.error = false;
       })
       .addCase(fetchFullPost.fulfilled, (state, { payload: fullPost }) => {
         state.loading = false;
@@ -62,6 +62,19 @@ const fullPostSlice = createSlice({
       .addCase(fetchFullPost.rejected, (state) => {
         state.loading = false;
         state.error = true;
+      });
+
+    builder
+      .addCase(addComment.pending, (state) => {
+        state.commentSubmitLoading = true;
+        state.commentSubmitError = null;
+      })
+      .addCase(addComment.fulfilled, (state) => {
+        state.commentSubmitLoading = false;
+      })
+      .addCase(addComment.rejected, (state, { payload: error }) => {
+        state.commentSubmitLoading = false;
+        state.commentSubmitError = error || null;
       });
   },
 });
@@ -75,7 +88,7 @@ export const selectFullPostComments = (state: RootState) =>
 export const selectFullPostLoading = (state: RootState) =>
   state.fullPost.loading;
 export const selectFullPostError = (state: RootState) => state.fullPost.error;
-export const selectFullPostCommentsLoading = (state: RootState) =>
-  state.fullPost.commentsLoading;
-export const selectFullPostCommentError = (state: RootState) =>
-  state.fullPost.commentsError;
+export const selectFullPostCommentSubmitLoading = (state: RootState) =>
+  state.fullPost.commentSubmitLoading;
+export const selectFullPostCommentSubmitError = (state: RootState) =>
+  state.fullPost.commentSubmitError;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { addComment, fetchFullPost } from '../../store/fullPost/fullPostThunks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectFullPost, selectFullPostError, selectFullPostLoading } from '../../store/fullPost/fullPostSlice';
+import { selectFullPost, selectFullPostCommentSubmitError, selectFullPostCommentSubmitLoading, selectFullPostError, selectFullPostLoading } from '../../store/fullPost/fullPostSlice';
 import { Box, Container, Divider, Grid, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import dayjs from 'dayjs';
@@ -17,6 +17,8 @@ const FullPostPage: React.FC = () => {
   const post = useAppSelector(selectFullPost);
   const loading = useAppSelector(selectFullPostLoading);
   const error = useAppSelector(selectFullPostError);
+  const addCommentLoading = useAppSelector(selectFullPostCommentSubmitLoading);
+  const addCommentError = useAppSelector(selectFullPostCommentSubmitError);
   const user = useAppSelector(selectUser);
 
   const [comment, setComment] = useState('');
@@ -30,6 +32,7 @@ const FullPostPage: React.FC = () => {
   const onCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await dispatch(addComment(comment)).unwrap();
+    setComment('');
   };
 
   const getFullPost = async () => {
@@ -73,7 +76,7 @@ const FullPostPage: React.FC = () => {
         {/* {contentComments} */}
         {user && (
           <>
-            <Typography variant='h5' sx={{ mt: 2, mb: 1 }}>
+            <Typography variant='h5' sx={{ mt: 2, mb: 2 }}>
               Add comment
             </Typography>
             <Box component='form' onSubmit={onCommentSubmit}>
@@ -86,10 +89,11 @@ const FullPostPage: React.FC = () => {
                     type='text'
                     name='body'
                     label='Comment'
-                    required
                     rows={2}
                     value={comment}
                     onChange={onCommentChange}
+                    helperText={addCommentError?.errors['comment'].message}
+                    error={Boolean(addCommentError)}
                   />
                 </Grid>
                 <Grid item>
@@ -97,7 +101,7 @@ const FullPostPage: React.FC = () => {
                     type='submit'
                     variant='contained'
                     color='warning'
-                    loading={false}
+                    loading={addCommentLoading}
                   >
                     <span>Send</span>
                   </LoadingButton>

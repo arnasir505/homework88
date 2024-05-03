@@ -22,7 +22,7 @@ const CommentSchema = new Schema(
         message: 'Post does not exist.',
       },
     },
-    body: {
+    comment: {
       type: String,
       required: true,
     },

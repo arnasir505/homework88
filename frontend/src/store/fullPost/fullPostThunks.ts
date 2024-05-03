@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi';
-import { FullPost } from '../../types';
+import { FullPost, ValidationError } from '../../types';
 import { RootState } from '../../app/store';
+import { isAxiosError } from 'axios';
 
 export const fetchFullPost = createAsyncThunk<FullPost, string>(
   'fullPost/fetch',
@@ -15,25 +16,33 @@ export const fetchFullPost = createAsyncThunk<FullPost, string>(
   }
 );
 
-export const addComment = createAsyncThunk<void, string, { state: RootState }>(
-  'fullPost/addComment',
-  async (comment, { getState }) => {
-    try {
-      const token = getState().users.user?.token;
-      const postId = getState().fullPost.data._id;
+export const addComment = createAsyncThunk<
+  void,
+  string,
+  { state: RootState; rejectValue: ValidationError }
+>('fullPost/addComment', async (comment, { getState, rejectWithValue }) => {
+  try {
+    const token = getState().users.user?.token;
+    const postId = getState().fullPost.data._id;
 
-      const commentData = {
-        body: comment,
-        post: postId,
-      };
+    const commentData = {
+      comment: comment,
+      post: postId,
+    };
 
-      const config = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
 
-      await axiosApi.post('/comments', commentData, config);
-    } catch (error) {
-      throw error;
+    await axiosApi.post('/comments', commentData, config);
+  } catch (error) {
+    if (
+      isAxiosError(error) &&
+      error.response &&
+      error.response.status === 422
+    ) {
+      return rejectWithValue(error.response.data as ValidationError);
     }
+    throw error;
   }
-);
+});

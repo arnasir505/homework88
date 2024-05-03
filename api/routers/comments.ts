@@ -13,7 +13,7 @@ commentsRouter.post('/', auth, async (req: RequestWithUser, res, next) => {
     const commentData: CommentMutation = {
       author: req.user?.id,
       post: req.body.post,
-      body: req.body.body,
+      comment: req.body.comment,
       datetime: date.toISOString(),
     };
 
