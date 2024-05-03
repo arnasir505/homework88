@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Button, Grid, TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectNewPostImageName, updateFilename } from '../../store/newPost/newPostSlice';
+import { clearImage, selectNewPostImageName, updateFilename } from '../../store/newPost/newPostSlice';
 
 
 interface Props {
@@ -20,6 +20,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
       dispatch(updateFilename(e.target.files[0].name));
     } else {
       dispatch(updateFilename(''));
+      dispatch(clearImage());
     }
 
     onChange(e);

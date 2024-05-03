@@ -16,13 +16,15 @@ postsRouter.post(
       const date = new Date();
 
       if (!req.body.title) {
-        return res.status(400).send({error: 'Title field is required.'})
+        return res.status(400).send({ error: 'Title field is required.' });
       }
 
       if (!req.file && !req.body.description) {
-        return res.status(400).send({error: 'Fields image or description are required.'})
-      };
-      
+        return res
+          .status(400)
+          .send({ error: 'Fields image or description are required.' });
+      }
+
       const postData: PostMutation = {
         title: req.body.title,
         description: req.body.description || null,
@@ -45,9 +47,22 @@ postsRouter.post(
 
 postsRouter.get('/', async (_req, res, next) => {
   try {
-    const posts = await Post.find({}, {description: 0}).populate('author', 'username').sort({datetime: 'desc'});
+    const posts = await Post.find({}, { description: 0 })
+      .populate('author', 'username')
+      .sort({ datetime: 'desc' });
 
     return res.send(posts);
+  } catch (error) {
+    next(error);
+  }
+});
+
+postsRouter.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const post = await Post.findOne({ _id: id }).populate('author', 'username');
+
+    return res.send(post);
   } catch (error) {
     next(error);
   }

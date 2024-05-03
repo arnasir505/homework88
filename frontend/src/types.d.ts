@@ -27,7 +27,22 @@ export interface Post {
     username: string;
   };
   title: string;
-  image: string;
+  image: string | null;
+  datetime: string;
+}
+
+export interface FullPost extends Post{
+  description: string | null;
+}
+
+export interface Comment {
+  _id: string;
+  author: {
+    _id: string;
+    username: string;
+  };
+  post: string;
+  body: string;
   datetime: string;
 }
 

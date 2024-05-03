@@ -40,4 +40,3 @@ export const postsReducer = postsSlice.reducer;
 
 export const selectPosts = (state: RootState) => state.posts.items;
 export const selectPostsLoading = (state: RootState) => state.posts.loading;
-export const selectPostsError = (state: RootState) => state.posts.error;

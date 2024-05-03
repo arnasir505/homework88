@@ -13,6 +13,7 @@ import { usersReducer } from '../store/users/usersSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { newPostReducer } from '../store/newPost/newPostSlice';
 import { postsReducer } from '../store/posts/postsSlice';
+import { fullPostReducer } from '../store/fullPost/fullPostSlice';
 
 const userPersistConfig = {
   key: 'forum:users',
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   users: persistReducer(userPersistConfig, usersReducer),
   newPost: newPostReducer,
   posts: postsReducer,
+  fullPost: fullPostReducer,
 });
 
 export const store = configureStore({

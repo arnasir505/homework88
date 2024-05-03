@@ -40,6 +40,9 @@ const newPostSlice = createSlice({
     updateFilename: (state, { payload: filename }: PayloadAction<string>) => {
       state.filename = filename;
     },
+    clearImage: (state) => {
+      state.data.image = null;
+    },
     clearForm: (state) => {
       state.data = { title: '', description: '', image: null };
       state.filename = '';
@@ -67,6 +70,7 @@ export const {
   updateDescription,
   updateImage,
   updateFilename,
+  clearImage,
   clearForm,
 } = newPostSlice.actions;
 
