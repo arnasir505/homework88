@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Box, Container, Grid, TextField, Typography } from '@mui/material';
 import FileInput from '../../components/FileInput/FileInput';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   clearForm,
   selectNewPost,
+  selectNewPostError,
   selectNewPostSubmitLoading,
   updateDescription,
   updateImage,
@@ -12,12 +13,14 @@ import {
 } from '../../store/newPost/newPostSlice';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
+import { addNewPost } from '../../store/newPost/newPostThunks';
 
 const NewPost: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const newPost = useAppSelector(selectNewPost);
   const loading = useAppSelector(selectNewPostSubmitLoading);
+  const error = useAppSelector(selectNewPostError);
 
   const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -30,17 +33,26 @@ const NewPost: React.FC = () => {
 
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // await dispatch(createNewPost(newPost));
+    await dispatch(addNewPost()).unwrap();
     dispatch(clearForm());
     navigate('/');
   };
 
   return (
     <Container sx={{ py: 3 }} maxWidth='md'>
-      <Typography variant='h4' sx={{ mb: 2 }}>
+      <Typography variant='h4' sx={{mb: 1}}>
         Add new post
       </Typography>
-      <form onSubmit={onFormSubmit}>
+      {error && (
+        <Alert
+          severity='error'
+          variant='outlined'
+          sx={{ my: 2, width: '100%' }}
+        >
+          {error.error}
+        </Alert>
+      )}
+      <Box component='form' onSubmit={onFormSubmit}>
         <Grid container rowSpacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -48,7 +60,6 @@ const NewPost: React.FC = () => {
               name='title'
               label='Title'
               color='warning'
-              required
               value={newPost.title}
               onChange={(e) => dispatch(updateTitle(e.target.value))}
             />
@@ -83,7 +94,7 @@ const NewPost: React.FC = () => {
             </LoadingButton>
           </Grid>
         </Grid>
-      </form>
+      </Box>
     </Container>
   );
 };

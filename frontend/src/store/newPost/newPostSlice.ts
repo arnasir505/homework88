@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { GlobalError, PostMutation } from '../../types';
 import { RootState } from '../../app/store';
+import { addNewPost } from './newPostThunks';
 
 interface NewPostState {
   data: PostMutation;
@@ -45,7 +46,18 @@ const newPostSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    
+    builder
+      .addCase(addNewPost.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(addNewPost.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(addNewPost.rejected, (state, { payload: error }) => {
+        state.loading = false;
+        state.error = error || null;
+      });
   },
 });
 
@@ -63,3 +75,4 @@ export const selectNewPostImageName = (state: RootState) =>
   state.newPost.filename;
 export const selectNewPostSubmitLoading = (state: RootState) =>
   state.newPost.loading;
+export const selectNewPostError = (state: RootState) => state.newPost.error;
