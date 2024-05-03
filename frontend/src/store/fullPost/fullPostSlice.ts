@@ -48,6 +48,9 @@ const fullPostSlice = createSlice({
         description: null,
       };
     },
+    clearComments: (state) => {
+      state.comments = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,7 +87,7 @@ const fullPostSlice = createSlice({
 });
 
 export const fullPostReducer = fullPostSlice.reducer;
-export const { clearFullPost } = fullPostSlice.actions;
+export const { clearFullPost, clearComments } = fullPostSlice.actions;
 
 export const selectFullPost = (state: RootState) => state.fullPost.data;
 export const selectFullPostComments = (state: RootState) =>
