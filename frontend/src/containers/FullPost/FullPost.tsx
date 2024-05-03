@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchFullPost } from '../../store/fullPost/fullPostThunks';
+import { addComment, fetchFullPost } from '../../store/fullPost/fullPostThunks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectFullPost, selectFullPostError, selectFullPostLoading } from '../../store/fullPost/fullPostSlice';
 import { Box, Container, Divider, Grid, TextField, Typography } from '@mui/material';
@@ -27,8 +27,9 @@ const FullPostPage: React.FC = () => {
     setComment(e.target.value);
   };
 
-  const onCommentSubmit = (e: React.FormEvent) => {
+  const onCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await dispatch(addComment(comment)).unwrap();
   };
 
   const getFullPost = async () => {

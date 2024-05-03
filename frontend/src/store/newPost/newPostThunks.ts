@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi';
 import { GlobalError } from '../../types';
-import { blobUrlToFile } from '../../constants';
+import { blobUrlToFile } from '../../utils';
 import { isAxiosError } from 'axios';
 import { RootState } from '../../app/store';
 
