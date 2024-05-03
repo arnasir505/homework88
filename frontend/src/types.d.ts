@@ -20,6 +20,14 @@ export interface User {
   token: string;
 }
 
+export interface Post {
+  _id: string;
+  author: string;
+  title: string;
+  image: string;
+  datetime: string;
+}
+
 export interface RegisterLoginResponse {
   user: User;
   message: string;

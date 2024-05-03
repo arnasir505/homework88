@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 import Register from './containers/Register/Register';
 import Login from './containers/Login/Login';
 import NewPost from './containers/NewPost/NewPost';
+import Posts from './containers/Posts/Posts';
 
 const App = () => {
   return (
@@ -13,10 +14,10 @@ const App = () => {
       </header>
       <main>
         <Routes>
-          <Route path='/' element={'home'}/>
-          <Route path='/register' element={<Register/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/new-post' element={<NewPost/>}/>
+          <Route path='/' element={<Posts />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/new-post' element={<NewPost />} />
           <Route
             path='*'
             element={
