@@ -1,5 +1,12 @@
-import React from 'react';
-import { Alert, Box, Container, Grid, TextField, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import {
+  Alert,
+  Box,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from '@mui/material';
 import FileInput from '../../components/FileInput/FileInput';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
@@ -14,10 +21,12 @@ import {
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { addNewPost } from '../../store/newPost/newPostThunks';
+import { selectUser } from '../../store/users/usersSlice';
 
 const NewPost: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
   const newPost = useAppSelector(selectNewPost);
   const loading = useAppSelector(selectNewPostSubmitLoading);
   const error = useAppSelector(selectNewPostError);
@@ -38,9 +47,15 @@ const NewPost: React.FC = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
+
   return (
     <Container sx={{ py: 3 }} maxWidth='md'>
-      <Typography variant='h4' sx={{mb: 1}}>
+      <Typography variant='h4' sx={{ mb: 2 }}>
         Add new post
       </Typography>
       {error && (

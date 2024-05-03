@@ -1,9 +1,10 @@
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Button, CircularProgress, Menu, MenuItem } from '@mui/material';
 import React, { useState } from 'react';
 import { User } from '../../types';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout } from '../../store/users/usersThunks';
+import { selectLogoutLoading } from '../../store/users/usersSlice';
 
 interface Props {
   user: User;
@@ -12,6 +13,7 @@ interface Props {
 const UserMenu: React.FC<Props> = ({ user }) => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAncorEl] = useState<HTMLElement | null>(null);
+  const loading = useAppSelector(selectLogoutLoading);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     setAncorEl(e.currentTarget);
@@ -44,7 +46,9 @@ const UserMenu: React.FC<Props> = ({ user }) => {
             Add new post
           </Link>
         </MenuItem>
-        <MenuItem onClick={handleLogout}>Log out</MenuItem>
+        <MenuItem onClick={handleLogout}>
+          {loading && <CircularProgress size={20} sx={{ mr: 1 }} />}Log out
+        </MenuItem>
       </Menu>
     </>
   );
