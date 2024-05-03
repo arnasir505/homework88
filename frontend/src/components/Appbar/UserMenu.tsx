@@ -30,7 +30,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
   return (
     <>
       <Button color='inherit' onClick={handleClick}>
-        Hello {user.username}!
+        Hello, {user.username}!
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -47,7 +47,10 @@ const UserMenu: React.FC<Props> = ({ user }) => {
           </Link>
         </MenuItem>
         <MenuItem onClick={handleLogout}>
-          {loading && <CircularProgress size={20} sx={{ mr: 1 }} color='warning'/>}Log out
+          {loading && (
+            <CircularProgress size={20} sx={{ mr: 1 }} color='warning' />
+          )}
+          Log out
         </MenuItem>
       </Menu>
     </>

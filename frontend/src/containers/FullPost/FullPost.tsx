@@ -93,14 +93,19 @@ const FullPostPage: React.FC = () => {
         </Typography>
         <Divider sx={{ my: 2 }} />
         {comments.map((comment) => (
-          <Card key={comment._id} elevation={0} sx={{mb: 1}}>
-              <Typography variant='body1' sx={{ fontWeight: 'bold', mr: 1 }}>
-                {comment.author.username}
-              </Typography>
-              <Typography variant='body1' color='gray' fontSize='0.9rem' fontStyle='oblique'>
-                {dayjs(comment.datetime).format('DD.MM.YYYY HH:mm')}
-              </Typography>
-              <Typography variant='body1'>{comment.comment}</Typography>
+          <Card key={comment._id} elevation={0} sx={{ mb: 1 }}>
+            <Typography variant='body1' sx={{ fontWeight: 'bold', mr: 1 }}>
+              {comment.author.username}
+            </Typography>
+            <Typography
+              variant='body1'
+              color='gray'
+              fontSize='0.9rem'
+              fontStyle='oblique'
+            >
+              {dayjs(comment.datetime).format('DD.MM.YYYY HH:mm')}
+            </Typography>
+            <Typography variant='body1'>{comment.comment}</Typography>
           </Card>
         ))}
         {user && (

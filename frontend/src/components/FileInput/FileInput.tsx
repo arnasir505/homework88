@@ -1,8 +1,11 @@
 import React, { useRef } from 'react';
 import { Button, Grid, TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { clearImage, selectNewPostImageName, updateFilename } from '../../store/newPost/newPostSlice';
-
+import {
+  clearImage,
+  selectNewPostImageName,
+  updateFilename,
+} from '../../store/newPost/newPostSlice';
 
 interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

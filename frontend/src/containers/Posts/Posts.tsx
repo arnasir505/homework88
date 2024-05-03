@@ -50,7 +50,12 @@ const Posts: React.FC = () => {
                 <Link to={`/posts/${post._id}`} style={{ color: '#ed6c02' }}>
                   <Typography variant='h6'>{post.title}</Typography>
                 </Link>
-                <Typography variant='body1' fontStyle='oblique' fontWeight='bold' sx={{mt: '5px'}}>
+                <Typography
+                  variant='body1'
+                  fontStyle='oblique'
+                  fontWeight='bold'
+                  sx={{ mt: '5px' }}
+                >
                   {post.author.username}
                 </Typography>
               </CardContent>
