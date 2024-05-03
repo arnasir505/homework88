@@ -73,6 +73,7 @@ const Login = () => {
             <Grid item xs={12}>
               <TextField
                 required
+                color='warning'
                 label='Username'
                 name='username'
                 autoComplete='new-username'
@@ -83,6 +84,7 @@ const Login = () => {
             <Grid item xs={12}>
               <TextField
                 required
+                color='warning'
                 name='password'
                 label='Password'
                 type='password'

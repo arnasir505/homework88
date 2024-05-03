@@ -36,7 +36,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
       <input
         style={{ display: 'none' }}
         type='file'
-        accept='.jpg, .jpeg, .png'
+        accept='.jpg, .jpeg, .png .webp'
         name={name}
         onChange={onFileChange}
         ref={inputRef}
@@ -46,6 +46,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
         <Grid item xs>
           <TextField
             fullWidth
+            color='warning'
             inputProps={{ readOnly: true }}
             label={label}
             value={filename}
@@ -54,7 +55,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
         </Grid>
 
         <Grid item>
-          <Button variant='contained' onClick={activateInput}>
+          <Button variant='contained' onClick={activateInput} color='warning'>
             Browse
           </Button>
         </Grid>

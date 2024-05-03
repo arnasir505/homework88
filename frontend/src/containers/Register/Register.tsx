@@ -71,6 +71,7 @@ const Register = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                color='warning'
                 label='Username'
                 name='username'
                 autoComplete='new-username'
@@ -82,6 +83,7 @@ const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                color='warning'
                 name='password'
                 label='Password'
                 type='password'
