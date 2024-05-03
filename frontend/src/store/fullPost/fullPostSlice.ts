@@ -18,10 +18,10 @@ const initialState: FullPostState = {
       _id: '',
       username: '',
     },
-    description: null,
     title: '',
     image: null,
     datetime: '',
+    description: null,
   },
   comments: [],
   loading: false,
@@ -32,21 +32,39 @@ const initialState: FullPostState = {
 const fullPostSlice = createSlice({
   name: 'fullPost',
   initialState,
-  reducers: {},
+  reducers: {
+    clearFullPost: (state) => {
+      state.data = {
+        _id: '',
+        author: {
+          _id: '',
+          username: '',
+        },
+        title: '',
+        image: null,
+        datetime: '',
+        description: null,
+      };
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(fetchFullPost.pending, state=>{
-      state.loading = true;
-      state.commentsError = null;
-    }).addCase(fetchFullPost.fulfilled, (state, {payload: fullPost}) => {
-      state.loading = false;
-      state.data = fullPost;
-    }).addCase(fetchFullPost.rejected, (state) => {
-      state.loading = false;
-    })
+    builder
+      .addCase(fetchFullPost.pending, (state) => {
+        state.loading = true;
+        state.commentsError = null;
+      })
+      .addCase(fetchFullPost.fulfilled, (state, { payload: fullPost }) => {
+        state.loading = false;
+        state.data = fullPost;
+      })
+      .addCase(fetchFullPost.rejected, (state) => {
+        state.loading = false;
+      });
   },
 });
 
 export const fullPostReducer = fullPostSlice.reducer;
+export const { clearFullPost } = fullPostSlice.actions;
 
 export const selectFullPost = (state: RootState) => state.fullPost.data;
 export const selectFullPostComments = (state: RootState) =>
