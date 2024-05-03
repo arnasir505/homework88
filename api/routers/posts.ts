@@ -45,7 +45,7 @@ postsRouter.post(
 
 postsRouter.get('/', async (_req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find({}, {description: 0}).populate('author', 'username').sort({datetime: 'desc'});
 
     return res.send(posts);
   } catch (error) {

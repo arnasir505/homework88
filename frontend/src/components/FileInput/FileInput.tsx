@@ -36,7 +36,7 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
       <input
         style={{ display: 'none' }}
         type='file'
-        accept='.jpg, .jpeg, .png .webp'
+        accept='.jpg, .jpeg, .png, .webp'
         name={name}
         onChange={onFileChange}
         ref={inputRef}

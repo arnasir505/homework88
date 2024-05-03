@@ -15,7 +15,7 @@ import UserMenu from './UserMenu';
 import AnonymousMenu from './AnonymousMenu';
 
 const LogoLink = styled(NavLink)({
-  color: '#ff4500',
+  color: '#ed6c02',
   textDecoration: 'none',
 });
 
