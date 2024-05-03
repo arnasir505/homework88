@@ -1,9 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
 import Appbar from './components/Appbar/Appbar';
+import { Route, Routes } from 'react-router-dom';
+import Posts from './containers/Posts/Posts';
 import Register from './containers/Register/Register';
 import Login from './containers/Login/Login';
 import NewPost from './containers/NewPost/NewPost';
-import Posts from './containers/Posts/Posts';
 import FullPostPage from './containers/FullPost/FullPost';
 import NotFound from './components/NotFound/NotFound';
 

@@ -14,6 +14,12 @@ import {
   selectFullPostError,
   selectFullPostLoading,
 } from '../../store/fullPost/fullPostSlice';
+import { apiUrl } from '../../constants';
+import { selectUser } from '../../store/users/usersSlice';
+import Progress from '../../components/Progress/Progress';
+import NotFound from '../../components/NotFound/NotFound';
+import dayjs from 'dayjs';
+import { LoadingButton } from '@mui/lab';
 import {
   Box,
   Card,
@@ -23,12 +29,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
-import dayjs from 'dayjs';
-import { apiUrl } from '../../constants';
-import { selectUser } from '../../store/users/usersSlice';
-import Progress from '../../components/Progress/Progress';
-import NotFound from '../../components/NotFound/NotFound';
 
 const FullPostPage: React.FC = () => {
   const params = useParams();

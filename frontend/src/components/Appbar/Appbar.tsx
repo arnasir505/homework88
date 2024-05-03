@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link as NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
+import { selectUser } from '../../store/users/usersSlice';
+import UserMenu from './UserMenu';
+import AnonymousMenu from './AnonymousMenu';
 import {
   Box,
   AppBar,
@@ -9,10 +13,6 @@ import {
   styled,
   Grid,
 } from '@mui/material';
-import { useAppSelector } from '../../app/hooks';
-import { selectUser } from '../../store/users/usersSlice';
-import UserMenu from './UserMenu';
-import AnonymousMenu from './AnonymousMenu';
 
 const LogoLink = styled(NavLink)({
   color: '#ed6c02',

@@ -16,5 +16,5 @@ export interface CommentMutation {
   author: string;
   post: string;
   comment: string;
-  datetime: string; 
+  datetime: string;
 }

@@ -1,5 +1,5 @@
-import { GlobalError, User, ValidationError } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
+import { GlobalError, User, ValidationError } from '../../types';
 import { RootState } from '../../app/store';
 import { login, logout, register } from './usersThunks';
 

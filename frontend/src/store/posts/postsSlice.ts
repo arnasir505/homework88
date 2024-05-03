@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Post } from '../../types';
-import { RootState } from '../../app/store';
 import { fetchPosts } from './postsThunks';
+import { RootState } from '../../app/store';
 
 interface PostsState {
   items: Post[];

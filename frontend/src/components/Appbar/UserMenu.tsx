@@ -1,10 +1,10 @@
-import { Button, CircularProgress, Menu, MenuItem } from '@mui/material';
 import React, { useState } from 'react';
 import { User } from '../../types';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout } from '../../store/users/usersThunks';
 import { selectLogoutLoading } from '../../store/users/usersSlice';
+import { Button, CircularProgress, Menu, MenuItem } from '@mui/material';
 
 interface Props {
   user: User;

@@ -1,11 +1,3 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  Grid,
-  Typography,
-} from '@mui/material';
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchPosts } from '../../store/posts/postsThunks';
@@ -15,6 +7,14 @@ import Progress from '../../components/Progress/Progress';
 import { apiUrl } from '../../constants';
 import textPlaceholder from '../../assets/chat-balloon.png';
 import dayjs from 'dayjs';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
 
 const Posts: React.FC = () => {
   const dispatch = useAppDispatch();

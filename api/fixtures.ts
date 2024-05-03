@@ -91,7 +91,8 @@ const run = async () => {
     {
       author: user2._id,
       post: post2._id,
-      comment: 'ПРОЧИТАЙТЕ! Я специально не добавил спиннер при загрузке комментариев, так как по моему мнению это ухудшало UX после отправки комментария, ПОЖАЛУЙСТА НЕ СНИМАЙТЕ БАЛЛЫ',
+      comment:
+        'ПРОЧИТАЙТЕ! Я специально не добавил спиннер при загрузке комментариев, так как по моему мнению это ухудшало UX после отправки комментария, ПОЖАЛУЙСТА НЕ СНИМАЙТЕ БАЛЛЫ',
       datetime: date.toISOString(),
     },
     {
@@ -123,7 +124,7 @@ const run = async () => {
       post: post4._id,
       comment: 'You should watch Interstellar',
       datetime: date.toISOString(),
-    },
+    }
   );
 
   await db.close();
