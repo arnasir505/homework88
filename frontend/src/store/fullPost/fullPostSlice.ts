@@ -7,6 +7,7 @@ interface FullPostState {
   data: FullPost;
   comments: Comment[];
   loading: boolean;
+  error: boolean;
   commentsLoading: boolean;
   commentsError: ValidationError | null;
 }
@@ -25,6 +26,7 @@ const initialState: FullPostState = {
   },
   comments: [],
   loading: false,
+  error: false,
   commentsLoading: false,
   commentsError: null,
 };
@@ -59,6 +61,7 @@ const fullPostSlice = createSlice({
       })
       .addCase(fetchFullPost.rejected, (state) => {
         state.loading = false;
+        state.error = true;
       });
   },
 });
@@ -71,6 +74,7 @@ export const selectFullPostComments = (state: RootState) =>
   state.fullPost.comments;
 export const selectFullPostLoading = (state: RootState) =>
   state.fullPost.loading;
+export const selectFullPostError = (state: RootState) => state.fullPost.error;
 export const selectFullPostCommentsLoading = (state: RootState) =>
   state.fullPost.commentsLoading;
 export const selectFullPostCommentError = (state: RootState) =>

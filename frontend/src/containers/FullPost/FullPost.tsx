@@ -2,19 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchFullPost } from '../../store/fullPost/fullPostThunks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectFullPost, selectFullPostLoading } from '../../store/fullPost/fullPostSlice';
+import { selectFullPost, selectFullPostError, selectFullPostLoading } from '../../store/fullPost/fullPostSlice';
 import { Box, Container, Divider, Grid, TextField, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import dayjs from 'dayjs';
 import { apiUrl } from '../../constants';
 import { selectUser } from '../../store/users/usersSlice';
 import Progress from '../../components/Progress/Progress';
+import NotFound from '../../components/NotFound/NotFound';
 
 const FullPostPage: React.FC = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
   const post = useAppSelector(selectFullPost);
   const loading = useAppSelector(selectFullPostLoading);
+  const error = useAppSelector(selectFullPostError);
   const user = useAppSelector(selectUser);
 
   const [comment, setComment] = useState('');
@@ -31,7 +33,7 @@ const FullPostPage: React.FC = () => {
 
   const getFullPost = async () => {
     if (params.id) {
-      await dispatch(fetchFullPost(params.id));
+      await dispatch(fetchFullPost(params.id)).unwrap();
     }
   };
 
@@ -109,7 +111,7 @@ const FullPostPage: React.FC = () => {
 
   return (
     <Container sx={{ py: 3 }}>
-      {content}
+      {error ? <NotFound/> : content}
     </Container>
   );
 };

@@ -62,6 +62,9 @@ postsRouter.get('/:id', async (req, res, next) => {
     const id = req.params.id;
     const post = await Post.findOne({ _id: id }).populate('author', 'username');
 
+    if (!post) {
+      return res.status(404).send({error: 'Not Found'})
+    }
     return res.send(post);
   } catch (error) {
     next(error);
