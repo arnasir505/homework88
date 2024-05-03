@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Comment, FullPost, ValidationError } from '../../types';
 import { RootState } from '../../app/store';
-import { addComment, fetchFullPost } from './fullPostThunks';
+import { addComment, fetchComments, fetchFullPost } from './fullPostThunks';
 
 interface FullPostState {
   data: FullPost;
@@ -76,6 +76,10 @@ const fullPostSlice = createSlice({
         state.commentSubmitLoading = false;
         state.commentSubmitError = error || null;
       });
+
+    builder.addCase(fetchComments.fulfilled, (state, { payload: comments }) => {
+      state.comments = comments;
+    });
   },
 });
 

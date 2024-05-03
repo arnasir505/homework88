@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi';
-import { FullPost, ValidationError } from '../../types';
+import { Comment, FullPost, ValidationError } from '../../types';
 import { RootState } from '../../app/store';
 import { isAxiosError } from 'axios';
 
@@ -43,6 +43,20 @@ export const addComment = createAsyncThunk<
     ) {
       return rejectWithValue(error.response.data as ValidationError);
     }
+    throw error;
+  }
+});
+
+export const fetchComments = createAsyncThunk<
+  Comment[],
+  undefined,
+  { state: RootState }
+>('fullPost/fetchComments', async (_, { getState }) => {
+  try {
+    const postId = getState().fullPost.data._id;
+    const response = await axiosApi.get<Comment[]>(`/comments?post=${postId}`);
+    return response.data;
+  } catch (error) {
     throw error;
   }
 });

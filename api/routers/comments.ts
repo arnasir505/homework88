@@ -30,7 +30,9 @@ commentsRouter.post('/', auth, async (req: RequestWithUser, res, next) => {
 
 commentsRouter.get('/', async (req, res, next) => {
   try {
-    const comments = await Comment.find({ post: req.query.post });
+    const comments = await Comment.find({ post: req.query.post }, { post: 0 })
+      .populate('author', 'username')
+      .sort({ datetime: 'asc' });
 
     return res.send(comments);
   } catch (error) {

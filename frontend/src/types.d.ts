@@ -41,8 +41,7 @@ export interface Comment {
     _id: string;
     username: string;
   };
-  post: string;
-  body: string;
+  comment: string;
   datetime: string;
 }
 

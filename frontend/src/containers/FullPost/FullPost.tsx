@@ -1,9 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { addComment, fetchFullPost } from '../../store/fullPost/fullPostThunks';
+import {
+  addComment,
+  fetchComments,
+  fetchFullPost,
+} from '../../store/fullPost/fullPostThunks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectFullPost, selectFullPostCommentSubmitError, selectFullPostCommentSubmitLoading, selectFullPostError, selectFullPostLoading } from '../../store/fullPost/fullPostSlice';
-import { Box, Container, Divider, Grid, TextField, Typography } from '@mui/material';
+import {
+  selectFullPost,
+  selectFullPostCommentSubmitError,
+  selectFullPostCommentSubmitLoading,
+  selectFullPostComments,
+  selectFullPostError,
+  selectFullPostLoading,
+} from '../../store/fullPost/fullPostSlice';
+import {
+  Box,
+  Card,
+  Container,
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import dayjs from 'dayjs';
 import { apiUrl } from '../../constants';
@@ -20,6 +39,7 @@ const FullPostPage: React.FC = () => {
   const addCommentLoading = useAppSelector(selectFullPostCommentSubmitLoading);
   const addCommentError = useAppSelector(selectFullPostCommentSubmitError);
   const user = useAppSelector(selectUser);
+  const comments = useAppSelector(selectFullPostComments);
 
   const [comment, setComment] = useState('');
 
@@ -33,11 +53,13 @@ const FullPostPage: React.FC = () => {
     e.preventDefault();
     await dispatch(addComment(comment)).unwrap();
     setComment('');
+    await dispatch(fetchComments());
   };
 
   const getFullPost = async () => {
     if (params.id) {
       await dispatch(fetchFullPost(params.id)).unwrap();
+      await dispatch(fetchComments());
     }
   };
 
@@ -45,7 +67,7 @@ const FullPostPage: React.FC = () => {
     void getFullPost();
   }, [params.id]);
 
-  let content = <Progress/>;
+  let content = <Progress />;
 
   if (!loading) {
     content = (
@@ -70,10 +92,17 @@ const FullPostPage: React.FC = () => {
           {post.description}
         </Typography>
         <Divider sx={{ my: 2 }} />
-        {/* <Typography variant='h4'>
-        Comments
-      </Typography> */}
-        {/* {contentComments} */}
+        {comments.map((comment) => (
+          <Card key={comment._id} elevation={0} sx={{mb: 1}}>
+              <Typography variant='body1' sx={{ fontWeight: 'bold', mr: 1 }}>
+                {comment.author.username}
+              </Typography>
+              <Typography variant='body1' color='gray' fontSize='0.9rem' fontStyle='oblique'>
+                {dayjs(comment.datetime).format('DD.MM.YYYY HH:mm')}
+              </Typography>
+              <Typography variant='body1'>{comment.comment}</Typography>
+          </Card>
+        ))}
         {user && (
           <>
             <Typography variant='h5' sx={{ mt: 2, mb: 2 }}>
@@ -114,11 +143,7 @@ const FullPostPage: React.FC = () => {
     );
   }
 
-  return (
-    <Container sx={{ py: 3 }}>
-      {error ? <NotFound/> : content}
-    </Container>
-  );
+  return <Container sx={{ py: 3 }}>{error ? <NotFound /> : content}</Container>;
 };
 
 export default FullPostPage;
